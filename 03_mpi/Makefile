@@ -1,0 +1,28 @@
+00_hello: 00_hello.cpp
+	mpicxx 00_hello.cpp
+01_nbody: 01_nbody.cpp
+	mpicxx 01_nbody.cpp
+02_split: 02_split.cpp
+	mpicxx 02_split.cpp
+03_gather: 03_gather.cpp
+	mpicxx 03_gather.cpp
+04_bcast: 04_bcast.cpp
+	mpicxx 04_bcast.cpp
+05_allgather: 05_allgather.cpp
+	mpicxx 05_allgather.cpp
+06_iloop: 06_iloop.cpp
+	mpicxx 06_iloop.cpp
+07_jloop: 07_jloop.cpp
+	mpicxx 07_jloop.cpp
+08_derived_gather: 08_derived_gather.cpp
+	mpicxx 08_derived_gather.cpp
+09_derived_reduce: 09_derived_reduce.cpp
+	mpicxx 09_derived_reduce.cpp
+10_ring: 10_ring.cpp
+	mpicxx 10_ring.cpp
+11_distributed: 11_distributed.cpp
+	mpicxx 11_distributed.cpp
+12_non_blocking: 12_non_blocking.cpp
+	mpicxx 12_non_blocking.cpp
+13_one_sided: 13_one_sided.cpp
+	mpicxx 13_one_sided.cpp
