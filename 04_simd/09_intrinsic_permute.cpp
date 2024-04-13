@@ -1,16 +1,15 @@
 #include <cstdio>
-#include <immintrin.h>
+#include <x86intrin.h>
 
 int main() {
-  const int N = 8;
-  int idx[N] = {3,7,0,6,2,5,1,4};
-  float a[N], b[N];
+  const int N = 16;
+  int a[N];
   for(int i=0; i<N; i++)
-    a[idx[i]] = i * 0.1;
-  __m256i ivec = _mm256_load_si256((__m256i*)idx);
-  __m256 avec = _mm256_load_ps(a);
-  avec = _mm256_permutevar8x32_ps(avec, ivec);
-  _mm256_store_ps(b, avec);
+    a[i] = i;
+  __m512i avec = _mm512_load_si512(a);
+  __m512i idx = _mm512_setr_epi32(15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0);
+  avec = _mm512_permutexvar_epi32(idx, avec);
+  _mm512_store_si512(a, avec);
   for(int i=0; i<N; i++)
-    printf("%d %3.1f %3.1f\n",i,a[i],b[i]);
+    printf("%d %d\n",i,a[i]);
 }
