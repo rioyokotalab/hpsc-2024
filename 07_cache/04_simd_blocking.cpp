@@ -9,9 +9,9 @@ typedef vector<vector<float>> matrix;
 
 void matmult(matrix &A, matrix &B, matrix &C, int N) {
   const int m = N, n = N, k = N;
-  const int kc = 512;
+  const int kc = 2048;
   const int nc = 64;
-  const int mc = 256;
+  const int mc = 128;
   const int nr = 64;
   const int mr = 32;
 #pragma omp parallel for
@@ -59,7 +59,7 @@ void matmult(matrix &A, matrix &B, matrix &C, int N) {
 }
 
 int main(int argc, char **argv) {
-  const int N = 4096;
+  const int N = 8192;
   matrix A(N,vector<float>(N));
   matrix B(N,vector<float>(N));
   matrix C(N,vector<float>(N));

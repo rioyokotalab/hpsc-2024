@@ -8,7 +8,7 @@ using namespace std;
 extern "C" void sgemm_(char*, char*, int*, int*, int*, float*, float*, int*, float*, int*, float*, float*, int*);
 
 int main() {
-  int N = 4096;
+  int N = 8192;
   vector<float> A(N*N);
   vector<float> B(N*N);
   vector<float> C(N*N);
