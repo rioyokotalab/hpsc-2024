@@ -46,13 +46,5 @@ int main(int argc, char** argv) {
       }
     }
   }
-  for(int irank=0; irank<size; irank++) {
-    MPI_Barrier(MPI_COMM_WORLD);
-    if(irank==rank) {
-      for(int i=0; i<N/size; i++) {
-        //printf("%d %g %g\n",i+rank*N/size,ibody[i].fx,ibody[i].fy);
-      }
-    }
-  }
   MPI_Finalize();
 }

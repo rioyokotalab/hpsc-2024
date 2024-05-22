@@ -15,7 +15,7 @@ y = np.linspace(0, 2, ny)
 u = np.ones((ny, nx))
 u[int(.5 / dy):int(1 / dy + 1),int(.5 / dx):int(1 / dx + 1)] = 2
 fig = plt.figure(figsize=(11, 7), dpi=100)
-ax = fig.gca(projection='3d')
+ax = fig.add_subplot(projection='3d')
 X, Y = np.meshgrid(x, y)
 
 for n in range(nt):
