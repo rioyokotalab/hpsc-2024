@@ -14,6 +14,7 @@
 
 #define FROM(x, y) (from * NX * NY + y * NX + x)
 #define TO(x, y) (to * NX * NY + y * NX + x)
+#define Ix(x, y) (y * NX + x)
 
 float *array(size_t size)
 {
@@ -37,7 +38,7 @@ int main()
       for (int i = 1; i < NX - 1; i++)
       {
         // b[j,i]
-        b[TO(i, j)] = RHO * (1 / DT *
+        b[Ix(i, j)] = RHO * (1 / DT *
                                  ((u[FROM(i + 1, j)] - u[FROM(i - 1, j)]) / (2 * DX) + (v[FROM(i, j + 1)] - v[FROM(i, j - 1)]) / (2 * DY)) -
                              powf((u[FROM(i + 1, j)] - u[FROM(i - 1, j)]) / (2 * DX), 2) - 2 * ((u[FROM(i, j + 1)] - u[FROM(i, j - 1)]) / (2 * DY) * (v[FROM(i + 1, j)] - v[FROM(i - 1, j)]) / (2 * DX)) -
                              powf((v[FROM(i, j + 1)] - v[FROM(i, j - 1)]) / (2 * DY), 2));
@@ -51,6 +52,10 @@ int main()
         for (int i = 1; i < NX - 1; i++)
         {
           // p[j,i]
+          p[TO(i, j)] = (powf(DY, 2) * (p[FROM(i + 1, j)] + p[FROM(i - 1, j)]) +
+                         powf(DX, 2) * (p[FROM(i, j + 1)] + p[FROM(i, j - 1)]) -
+                         b[Ix(i, j)] * powf(DX, 2) * powf(DY, 2)) /
+                        (2 * (powf(DX, 2) + powf(DY, 2)));
         }
       }
     }
