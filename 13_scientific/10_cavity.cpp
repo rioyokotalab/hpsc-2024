@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <cstring>
+#include <cmath>
 
 #define NX 41
 #define NY 41
@@ -10,6 +11,9 @@
 #define DT 0.01
 #define RHO 1
 #define NU 0.02
+
+#define FROM(x, y) (from * NX * NY + y * NX + x)
+#define TO(x, y) (to * NX * NY + y * NX + x)
 
 float *array(size_t size)
 {
@@ -25,14 +29,18 @@ int main()
   v = array(sizeof(float) * 2 * NX * NY);
   p = array(sizeof(float) * 2 * NX * NY);
   b = array(sizeof(float) * NX * NY);
-  int from=0,to=1-from;
+  int from = 0, to = 1 - from;
   for (int n = 0; n < NT; n++)
   {
     for (int j = 1; j < NY - 1; j++)
     {
       for (int i = 1; i < NX - 1; i++)
       {
-        //b[j,i]
+        // b[j,i]
+        b[TO(i, j)] = RHO * (1 / DT *
+                                 ((u[FROM(i + 1, j)] - u[FROM(i - 1, j)]) / (2 * DX) + (v[FROM(i, j + 1)] - v[FROM(i, j - 1)]) / (2 * DY)) -
+                             powf((u[FROM(i + 1, j)] - u[FROM(i - 1, j)]) / (2 * DX), 2) - 2 * ((u[FROM(i, j + 1)] - u[FROM(i, j - 1)]) / (2 * DY) * (v[FROM(i + 1, j)] - v[FROM(i - 1, j)]) / (2 * DX)) -
+                             powf((v[FROM(i, j + 1)] - v[FROM(i, j - 1)]) / (2 * DY), 2));
       }
     }
 
@@ -42,7 +50,7 @@ int main()
       {
         for (int i = 1; i < NX - 1; i++)
         {
-          //p[j,i]
+          // p[j,i]
         }
       }
     }
@@ -51,13 +59,13 @@ int main()
     {
       for (int i = 1; i < NX - 1; i++)
       {
-        //u[j,i]
+        // u[j,i]
 
-        //v[j,i]
+        // v[j,i]
       }
     }
 
-    from=1-from;
-    to=1-to;
+    from = 1 - from;
+    to = 1 - to;
   }
 }
