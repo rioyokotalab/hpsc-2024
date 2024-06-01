@@ -65,8 +65,14 @@ int main()
       for (int i = 1; i < NX - 1; i++)
       {
         // u[j,i]
+        u[TO(i, j)] = u[FROM(i, j)] - u[FROM(i, j)] * DT / DX * (u[FROM(i, j)] - u[FROM(i - 1, j)]) - u[FROM(i, j)] * DT / DY * (u[FROM(i, j)] - u[FROM(i, j - 1)]) -
+                      DT / (2 * RHO * DX) * (p[TO(i + 1, j)] - p[TO(i - 1, j)]) + NU * DT / powf(DX, 2) * (u[FROM(i + 1, j)] - 2 * u[FROM(j, i)] + u[FROM(i - 1, j)]) +
+                      NU * DT / powf(DY, 2) * (u[FROM(i, j + 1)] - 2 * u[FROM(i, j)] + u[FROM(i, j - 1)]);
 
         // v[j,i]
+        v[TO(i, j)] = v[FROM(i, j)] - v[FROM(i, j)] * DT / DX * (v[FROM(i, j)] - v[FROM(i - 1, j)]) - v[FROM(i, j)] * DT / DY * (v[FROM(i, j)] - v[FROM(i, j - 1)]) -
+                      DT / (2 * RHO * DX) * (p[TO(i, j + 1)] - p[TO(i, j - 1)]) + NU * DT / powf(DX, 2) * (v[FROM(i + 1, j)] - 2 * v[FROM(j, i)] + v[FROM(i - 1, j)]) +
+                      NU * DT / powf(DY, 2) * (v[FROM(i, j + 1)] - 2 * v[FROM(i, j)] + v[FROM(i, j - 1)]);
       }
     }
 
