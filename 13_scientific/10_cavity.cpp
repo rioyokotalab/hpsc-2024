@@ -58,6 +58,17 @@ int main()
                         (2 * (powf(DX, 2) + powf(DY, 2)));
         }
       }
+
+      for (int i = 0; i < NY; i++)
+      {
+        p[TO(0, i)] = p[TO(1, i)];
+        p[TO(NX - 1, i)] = p[TO(NX - 2, i)];
+      }
+      for (int i = 0; i < NX; i++)
+      {
+        p[TO(i, 0)] = p[TO(i, 1)];
+        p[TO(i, NY - 1)] = p[TO(i, NY - 2)];
+      }
     }
 
     for (int j = 1; j < NY - 1; j++)
@@ -74,6 +85,17 @@ int main()
                       DT / (2 * RHO * DX) * (p[TO(i, j + 1)] - p[TO(i, j - 1)]) + NU * DT / powf(DX, 2) * (v[FROM(i + 1, j)] - 2 * v[FROM(j, i)] + v[FROM(i - 1, j)]) +
                       NU * DT / powf(DY, 2) * (v[FROM(i, j + 1)] - 2 * v[FROM(i, j)] + v[FROM(i, j - 1)]);
       }
+    }
+
+    for (int i = 0; i < NX; i++)
+    {
+      u[TO(i, 0)] = u[TO(i, NY - 1)] = 0;
+      v[TO(i, 0)] = v[TO(i, NY - 1)] = 0;
+    }
+    for (int i = 0; i < NY; i++)
+    {
+      u[TO(0, i)] = u[TO(NX - 1, i)] = 0;
+      v[TO(0, i)] = v[TO(NX - 1, i)] = 0;
     }
 
     from = 1 - from;
