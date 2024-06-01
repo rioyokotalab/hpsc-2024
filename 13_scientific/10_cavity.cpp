@@ -12,9 +12,9 @@
 #define RHO 1
 #define NU 0.02
 
-#define FROM(x, y) (from * NX * NY + y * NX + x)
-#define TO(x, y) (to * NX * NY + y * NX + x)
-#define Ix(x, y) (y * NX + x)
+#define FROM(x, y) (from * NX * NY + (y) * NX + (x))
+#define TO(x, y) (to * NX * NY + (y) * NX + (x))
+#define Ix(x, y) ((y) * NX + (x))
 
 float *array(size_t size)
 {
