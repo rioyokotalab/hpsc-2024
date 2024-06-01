@@ -1,3 +1,5 @@
 *.o
 *.out
 .ipynb_checkpoints
+.python-version
+data

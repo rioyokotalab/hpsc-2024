@@ -17,14 +17,14 @@ void matmult(matrix &A, matrix &B, matrix &C, int N) {
 #pragma omp parallel for
   for (int jc=0; jc<n; jc+=nc) {
     for (int pc=0; pc<k; pc+=kc) {
-      float Bc[kc*nc];
+      float __attribute__((aligned(64))) Bc[kc*nc];
       for (int p=0; p<kc; p++) {
         for (int j=0; j<nc; j++) {
           Bc[p*nc+j] = B[p+pc][j+jc];
         }
       }
       for (int ic=0; ic<m; ic+=mc) {
-	float Ac[mc*kc],Cc[mc*nc];
+	float __attribute__((aligned(64))) Ac[mc*kc],Cc[mc*nc];
         for (int i=0; i<mc; i++) {
           for (int p=0; p<kc; p++) {
             Ac[i*kc+p] = A[i+ic][p+pc];
