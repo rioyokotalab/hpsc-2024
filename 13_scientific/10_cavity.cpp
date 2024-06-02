@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <cstring>
+#include <cstdio>
 #include <cmath>
 
 #define NX 41
@@ -31,6 +32,11 @@ int main()
   p = array(sizeof(float) * 2 * NX * NY);
   b = array(sizeof(float) * NX * NY);
   int from = 0, to = 1 - from;
+
+  FILE *ufile = fopen("u.dat", "w");
+  FILE *vfile = fopen("v.dat", "w");
+  FILE *pfile = fopen("p.dat", "w");
+
   for (int n = 0; n < NT; n++)
   {
     for (int j = 1; j < NY - 1; j++)
@@ -98,7 +104,37 @@ int main()
       v[TO(0, i)] = v[TO(NX - 1, i)] = 0;
     }
 
+    for (int j = 1; j < NY - 1; j++)
+    {
+      for (int i = 1; i < NX - 1; i++)
+      {
+        fprintf(ufile, "%f ", u[TO(i, j)]);
+      }
+    }
+    fprintf(ufile, "\n");
+    for (int j = 1; j < NY - 1; j++)
+    {
+      for (int i = 1; i < NX - 1; i++)
+      {
+        fprintf(vfile, "%f ", v[TO(i, j)]);
+      }
+    }
+    fprintf(ufile, "\n");
+    for (int j = 1; j < NY - 1; j++)
+    {
+      for (int i = 1; i < NX - 1; i++)
+      {
+        fprintf(pfile, "%f ", p[TO(i, j)]);
+      }
+    }
+    fprintf(ufile, "\n");
+
     from = 1 - from;
     to = 1 - to;
   }
+  fclose(ufile);
+  fclose(vfile);
+  fclose(pfile);
+
+  return 0;
 }
