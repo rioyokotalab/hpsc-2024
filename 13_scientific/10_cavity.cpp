@@ -91,13 +91,13 @@ int main()
       for (int i = 1; i < NX - 1; i++)
       {
         // u[j,i]
-        u[TO(i, j)] = u[FROM(i, j)] - u[FROM(i - 1, j)] * DT / DX * (u[FROM(i, j)] - u[FROM(i - 1, j)]) - u[FROM(i, j)] * DT / DY * (u[FROM(i, j)] - u[FROM(i, j - 1)]) -
-                      DT / (2 * RHO * DX) * (p[TO_(i + 1, j)] - p[TO_(i - 1, j)]) + NU * DT / powf(DX, 2) * (u[FROM(i + 1, j)] - 2 * u[FROM(j, i)] + u[FROM(i - 1, j)]) +
+        u[TO(i, j)] = u[FROM(i, j)] - u[FROM(i, j)] * DT / DX * (u[FROM(i, j)] - u[FROM(i - 1, j)]) - v[FROM(i, j)] * DT / DY * (u[FROM(i, j)] - u[FROM(i, j - 1)]) -
+                      DT / (2 * RHO * DX) * (p[TO_(i + 1, j)] - p[TO_(i - 1, j)]) + NU * DT / powf(DX, 2) * (u[FROM(i + 1, j)] - 2 * u[FROM(i, j)] + u[FROM(i - 1, j)]) +
                       NU * DT / powf(DY, 2) * (u[FROM(i, j + 1)] - 2 * u[FROM(i, j)] + u[FROM(i, j - 1)]);
 
         // v[j,i]
-        v[TO(i, j)] = v[FROM(i, j)] - v[FROM(i - 1, j)] * DT / DX * (v[FROM(i, j)] - v[FROM(i - 1, j)]) - v[FROM(i, j)] * DT / DY * (v[FROM(i, j)] - v[FROM(i, j - 1)]) -
-                      DT / (2 * RHO * DX) * (p[TO_(i, j + 1)] - p[TO_(i, j - 1)]) + NU * DT / powf(DX, 2) * (v[FROM(i + 1, j)] - 2 * v[FROM(j, i)] + v[FROM(i - 1, j)]) +
+        v[TO(i, j)] = v[FROM(i, j)] - u[FROM(i, j)] * DT / DX * (v[FROM(i, j)] - v[FROM(i - 1, j)]) - v[FROM(i, j)] * DT / DY * (v[FROM(i, j)] - v[FROM(i, j - 1)]) -
+                      DT / (2 * RHO * DY) * (p[TO_(i, j + 1)] - p[TO_(i, j - 1)]) + NU * DT / powf(DX, 2) * (v[FROM(i + 1, j)] - 2 * v[FROM(i, j)] + v[FROM(i - 1, j)]) +
                       NU * DT / powf(DY, 2) * (v[FROM(i, j + 1)] - 2 * v[FROM(i, j)] + v[FROM(i, j - 1)]);
       }
     }
@@ -114,25 +114,25 @@ int main()
       v[TO(0, i)] = v[TO(NX - 1, i)] = 0;
     }
 
-    for (int j = 1; j < NY - 1; j++)
+    for (int j = 0; j < NY; j++)
     {
-      for (int i = 1; i < NX - 1; i++)
+      for (int i = 0; i < NX; i++)
       {
         fprintf(ufile, "%f ", u[TO(i, j)]);
       }
     }
     fprintf(ufile, "\n");
-    for (int j = 1; j < NY - 1; j++)
+    for (int j = 0; j < NY; j++)
     {
-      for (int i = 1; i < NX - 1; i++)
+      for (int i = 0; i < NX; i++)
       {
         fprintf(vfile, "%f ", v[TO(i, j)]);
       }
     }
     fprintf(vfile, "\n");
-    for (int j = 1; j < NY - 1; j++)
+    for (int j = 0; j < NY; j++)
     {
-      for (int i = 1; i < NX - 1; i++)
+      for (int i = 0; i < NX; i++)
       {
         fprintf(pfile, "%f ", p[TO_(i, j)]);
       }
