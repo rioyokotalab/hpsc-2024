@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <stdio.h>
 
 #define NX 41
@@ -11,7 +10,7 @@
 #define RHO 1.0
 #define NU 0.02
 
-#define BS 16
+#define BS 32
 
 #define Ix(x, y) ((y) * NX + (x))
 
@@ -34,6 +33,7 @@ __global__ void step(float *p, float *u, float *v)
   float *pn = p + NY * NX;
   float *un = u + NY * NX;
   float *vn = v + NY * NX;
+  
   if (i >= NX || j >= NY)
   {
     return;
@@ -44,7 +44,6 @@ __global__ void step(float *p, float *u, float *v)
                    powf((u[Ix(i + 1, j)] - u[Ix(i - 1, j)]) / (2 * DX), 2) -
                    2 * ((u[Ix(i, j + 1)] - u[Ix(i, j - 1)]) / (2 * DY) * (v[Ix(i + 1, j)] - v[Ix(i - 1, j)]) / (2 * DX)) -
                    powf((v[Ix(i, j + 1)] - v[Ix(i, j - 1)]) / (2 * DY), 2));
-  __syncthreads();
 
   // p
   for (int it = 0; it < NIT; it++)
